@@ -1,102 +1,134 @@
 # BMP180 Driver for Raspberry Pi
-This repository contains a Linux kernel module for interfacing the BMP180 temperature and pressure sensor with a Raspberry Pi via the I2C bus.
+This repository contains a Linux kernel module for interfacing the BMP180 temperature and pressure sensor with a Raspberry Pi via the I2C bus. The BMP180 is a barometric pressure sensor that also provides temperature readings. This project allows you to build a working driver, insert it into the kernel, and test it with a simple user-space application.
 
 
 ## Project Structure
-* **bmp180\_driver.c** – Core kernel module code that communicates with the BMP180 sensor via I2C.
-* **bmp180.h** – Header file containing register definitions and calibration struct.
-* **bmp180\_demo.c** – A simple user-space program to demonstrate how to read data from the BMP180 driver.
-* **Makefile** – Script for compiling the kernel module and demo.
+
+- **bmp180_driver.c**: Main kernel driver that interfaces with the BMP180 sensor over I2C.
+- **bmp180.h**: Header file with declarations and I2C register definitions.
+- **Makefile**: Used to build the kernel module and demo application.
+- **bmp180_demo.c**: A user-space C program that opens the driver and prints temperature and pressure.
 
 
-##  Installation & Usage
+## Requirements
 
-### 1. Clone and Build
+- Raspberry Pi with Raspberry Pi OS.
+- BMP180 sensor connected via I2C.
+- Kernel headers installed for your Raspberry Pi’s current kernel version.
 
-```
-git clone https://github.com/XuanPhuong-Le/bmp180_driver.git
-cd bmp180_driver
-make
-```
 
-### 2. Load the Module
+## Installation
 
-```
-sudo insmod bmp180_driver.ko
-dmesg | tail
-```
+1. **Clone the Repository**
 
-### 3. Run the Demo
+   ```
+   git clone https://github.com/XuanPhuong-Le/bmp180_driver.git
+   cd bmp180_driver
+   ````
 
-```
-./bmp180_demo
-```
+2. **Build the Module and Demo**
 
-### 4. Unload the Module
+   ```
+   make
+   ```
 
-```
-sudo rmmod bmp180_driver
-```
+3. **Insert the Kernel Module**
 
----
+   ```
+   sudo insmod bmp180_driver.ko
+   ```
 
-## How It Works: Driver Breakdown (`bmp180_driver.c`)
+4. **Verify Module Loaded**
 
-### **`bmp180_probe()`**
+   ```
+   dmesg | tail
+   ```
 
-* Called when the I2C device is detected.
-* Initializes the sensor, reads calibration data, and optionally tests reading temperature/pressure.
-* Registers the misc device for user-space access via `/dev/bmp180`.
+5. **Run Demo Program**
 
-### **`bmp180_read_raw_temp()`**
+   ```
+   ./bmp180_demo
+   ```
 
-* Sends command `0x2E` to register `0xF4` to start temperature conversion.
-* Waits 5 ms and reads two bytes from `0xF6` and `0xF7` for raw temperature data.
+6. **Remove the Module**
 
-### **`bmp180_read_raw_pressure()`**
+   ```
+   sudo rmmod bmp180_driver
+   ```
 
-* Sends command `0x34` to `0xF4` to start pressure conversion (OSS = 0).
-* Waits 5 ms and reads three bytes from `0xF6`, `0xF7`, and `0xF8` for raw pressure data.
 
-### **`bmp180_calculate_temp_pressure()`**
+## Output Example
 
-* Applies Bosch’s compensation algorithm to convert raw data into real-world values.
-* Returns temperature in 0.1 °C and pressure in Pa.
-
-### **`bmp180_read()`**
-
-* Called when user-space reads from `/dev/bmp180`.
-* Retrieves both temperature and pressure and copies them to user space.
-
-### **`bmp180_remove()`**
-
-* Called on driver removal; unregisters the device.
-
----
-
-## Demo Program (`bmp180_demo.c`)
-
-* Opens `/dev/bmp180`
-* Reads 2 integers: temperature and pressure
-* Displays the values on the terminal
-
-Example output:
+The demo program will output:
 
 ```
-Temperature: 25.3 °C
-Pressure: 100521 Pa
+Raw Temperature: 27898
+Raw Pressure: 23843
+Calculated Temperature: 23.5 °C
+Calculated Pressure: 100532 Pa
 ```
 
----
 
-## Calibration Details (`bmp180.h`)
+## File Description
 
-Defines sensor register addresses and a struct `bmp180_calib_data` that holds the calibration coefficients from the sensor’s EEPROM.
+| File              | Description                                    |
+| ----------------- | ---------------------------------------------- |
+| `bmp180_driver.c` | Kernel driver for the BMP180 over I2C          |
+| `bmp180.h`        | Sensor register definitions and declarations   |
+| `Makefile`        | Build instructions for module and demo         |
+| `bmp180_demo.c`   | Userspace program to test driver functionality |
 
----
 
-## .gitignore
+
+## Important Functions in `bmp180_driver.c`
+
+
+### `s16 bmp180_read_raw_temp(void)`
+* **Purpose**: Reads the raw temperature data from the BMP180 sensor.
+* **Operation**:
+  * Sends command `0x2E` to `0xF4` to initiate temperature reading.
+  * Waits 5 ms.
+  * Reads 2 bytes from `0xF6`.
+* **Returns**: 16-bit raw temperature value.
+
+
+### `s32 bmp180_read_raw_pressure(void)`
+* **Purpose**: Reads the raw pressure data.
+* **Operation**:
+  * Sends command `0x34` to `0xF4` to initiate pressure reading (OSS = 0).
+  * Waits 5 ms.
+  * Reads 3 bytes from `0xF6`.
+* **Returns**: 32-bit raw pressure value (adjusted to OSS = 0).
+
+
+### `void bmp180_calculate_temp_pressure(s16 ut, s32 up, long *temperature, long *pressure)`
+* **Purpose**: Converts raw sensor data into real-world values using Bosch's compensation formulas.
+* **Parameters**:
+  * `ut`: Uncompensated temperature.
+  * `up`: Uncompensated pressure.
+  * `temperature`: Output temperature in 0.1 °C.
+  * `pressure`: Output pressure in Pascals.
+
+
+### `static int bmp180_probe(struct i2c_client *client, const struct i2c_device_id *id)`
+* **Called When**: The I2C device is detected during module load.
+* **Role**:
+  * Allocates and initializes the device.
+  * Reads calibration data from EEPROM (`0xAA` to `0xBF`).
+  * Registers the misc device for user-space access.
+  
+
+### `static void bmp180_remove(struct i2c_client *client)`
+* **Called When**: The driver is removed.
+* **Role**: Frees resources and unregisters the device.
+
+
+### `module_init(bmp180_init)` and `module_exit(bmp180_exit)`
+* Standard kernel macros for registering and unregistering the driver.
+
+
+## Author
+GitHub: [XuanPhuong-Le](https://github.com/XuanPhuong-Le)
+
 
 To keep the repository clean, files like `*.o`, `*.ko`, `.cmd`, binaries, and other build artifacts are ignored using `.gitignore`.
-
-
