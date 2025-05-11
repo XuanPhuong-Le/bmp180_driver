@@ -49,7 +49,3 @@ This will display the following values:
 * **Raw Pressure**: The raw pressure value from the BMP180 sensor.
 * **Calculated Temperature**: The temperature in degrees Celsius.
 * **Calculated Pressure**: The pressure in Pascals.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
