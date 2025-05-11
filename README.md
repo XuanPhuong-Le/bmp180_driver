@@ -62,10 +62,11 @@ This repository contains a Linux kernel module for interfacing the BMP180 temper
 The demo program will output:
 ------------------------------
 ```
-Raw Temperature: 27898
-Raw Pressure: 23843
-Calculated Temperature: 23.5 °C
-Calculated Pressure: 100532 Pa
+Raw Temperature: 30995
+Raw Pressure: 40696
+Temperature: 31.30 °C
+Pressure: 1005.52 hPa
+
 ```
 
 
