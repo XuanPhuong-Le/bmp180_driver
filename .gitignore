@@ -1,0 +1,9 @@
+*.o
+*.ko
+*.cmd
+*.mod
+*.mod.c
+*.mod.o
+*.symvers
+modules.order
+bmp180_demo
