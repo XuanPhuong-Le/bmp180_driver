@@ -8,14 +8,12 @@
 
 #define BMP180_ADDRESS 0x77
 
-// Các thanh ghi
 #define REG_CALIB_START 0xAA
 #define REG_CONTROL     0xF4
 #define REG_RESULT      0xF6
 #define CMD_TEMP        0x2E
 #define CMD_PRESSURE    0x34  // oversampling = 0
 
-// Biến hiệu chỉnh
 int16_t AC1, AC2, AC3, B1, B2, MB, MC, MD;
 uint16_t AC4, AC5, AC6;
 
@@ -66,7 +64,7 @@ int read_raw_pressure(int fd) {
     buf[0] = REG_RESULT;
     write(fd, buf, 1);
     read(fd, buf, 2);
-    return (buf[0] << 8) | buf[1]; // OSS = 0
+    return (buf[0] << 8) | buf[1]; 
 }
 
 int main() {
@@ -85,14 +83,14 @@ int main() {
 
     int UT = read_raw_temp(fd);
     int UP = read_raw_pressure(fd);
+    
 
-    // Tính nhiệt độ
     int X1 = ((UT - AC6) * AC5) >> 15;
     int X2 = ((int32_t)MC << 11) / (X1 + MD);
     int B5 = X1 + X2;
     float temperature = ((B5 + 8) >> 4) / 10.0;
+    
 
-    // Tính áp suất
     int B6 = B5 - 4000;
     X1 = (B2 * ((B6 * B6) >> 12)) >> 11;
     X2 = (AC2 * B6) >> 11;
