@@ -1,0 +1,1 @@
+cmd_/home/pi/baitap/bmp180_driver/bmp180_driver.mod := printf '%s\n'   bmp180_driver.o | awk '!x[$$0]++ { print("/home/pi/baitap/bmp180_driver/"$$0) }' > /home/pi/baitap/bmp180_driver/bmp180_driver.mod
