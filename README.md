@@ -51,6 +51,7 @@ bmp180-linux-driver/
 │   ├── bmp180_demo.c       # A user-space C program that opens the driver and prints temperature and pressure.
 │   ├── bmp180.h            # Header file with declarations and I2C register definitions.
 │   └── Makefile            # Used to build the kernel module and demo application.
+└── README.md               # Project documentation
 
 
 ## Requirements
