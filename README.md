@@ -45,11 +45,11 @@ The final results will be displayed on the screen, allowing users to monitor and
 
 ## Project Structure
 bmp180-linux-driver/
-├── bmp180_driver.c     # Main kernel driver that interfaces with the BMP180 sensor over I2C.
-├── bmp180_demo.c       # A user-space C program that opens the driver and prints temperature and pressure.
-├── bmp180.h            # Header file with declarations and I2C register definitions.
-└── Makefile            # Used to build the kernel module and demo application.
-└── README.md           # Project documentation
+- bmp180_driver.c     # Main kernel driver that interfaces with the BMP180 sensor over I2C.
+- bmp180_demo.c       # A user-space C program that opens the driver and prints temperature and pressure.
+- bmp180.h            # Header file with declarations and I2C register definitions.
+- Makefile            # Used to build the kernel module and demo application.
+- README.md           # Project documentation
 
 
 ## Requirements
