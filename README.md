@@ -26,7 +26,7 @@ The final results will be displayed on the screen, allowing users to monitor and
 1. I2C Initialization and Driver Configuration:
 - When the driver module is loaded into the Linux kernel, it initializes I2C communication with the BMP180 sensor through the SDA (data) and SCL (clock) pins of the Raspberry Pi.
 - The BMP180 sensor is configured to read temperature and pressure values.
-- 
+
 2. Reading Values from the Sensor:
 - The driver reads raw values from the BMP180 sensor's registers. The sensor provides data in a 16-bit format, which includes:
   - Raw temperature value
