@@ -12,7 +12,7 @@
 #define REG_CONTROL     0xF4
 #define REG_RESULT      0xF6
 #define CMD_TEMP        0x2E
-#define CMD_PRESSURE    0x34  // oversampling = 0
+#define CMD_PRESSURE    0x34  
 
 int16_t AC1, AC2, AC3, B1, B2, MB, MC, MD;
 uint16_t AC4, AC5, AC6;
