@@ -1,4 +1,4 @@
-# linux/drivers/module/bmp180.c
+# linux/drivers/i2c/bmp180.c
 ---------------------------------
 The modules BMP180 is a barometric pressure sensor that also provides temperature readings. 
 Author
