@@ -114,10 +114,12 @@ int main() {
     X2 = (-7357 * pressure) >> 16;
     pressure = pressure + ((X1 + X2 + 3791) >> 4);
 
-    printf("Temperature: %.2f °C\n", temperature);
-    printf("Pressure: %.2f hPa\n", pressure / 100.0);
+    
     printf("Raw Temperature: %d\n", UT);
     printf("Raw Pressure: %d\n", UP);
+    printf("Temperature: %.2f °C\n", temperature);
+    printf("Pressure: %.2f hPa\n", pressure / 100.0);
+
 
     close(fd);
     return 0;
