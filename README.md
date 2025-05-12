@@ -1,7 +1,14 @@
-# BMP180 Driver for Raspberry Pi
+# linux/drivers/module/bmp180.c
 ---------------------------------
 This repository contains a Linux kernel module for interfacing the BMP180 temperature and pressure sensor with a Raspberry Pi via the I2C bus. The BMP180 is a barometric pressure sensor that also provides temperature readings. This project allows you to build a working driver, insert it into the kernel, and test it with a simple user-space application.
+Author
+-------
+   Lê Vũ Xuân Phương – 22146045
+   Hồ Phan Đức Minh  – 22146034
+   Phạm Văn Thịnh    – 22146056
 
+📍 University: HCMC University of Technology and Education – HCMUTE
+📅 Created: 12/05/2025
 
 ## Project Structure
 ---------------------
@@ -59,6 +66,13 @@ This repository contains a Linux kernel module for interfacing the BMP180 temper
 
 ## Output Example
 ------------------
+Running the Test Application
+------------------------------
+```
+gcc -o driver_demo driver_demo.c
+sudo ./test_driver
+```
+
 The demo program will output:
 ------------------------------
 ```
