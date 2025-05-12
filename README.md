@@ -191,3 +191,8 @@ Pressure: 1005.52 hPa
 
 
 ## To keep the repository clean, files like `*.o`, `*.ko`, `.cmd`, binaries, and other build artifacts are ignored using `.gitignore`.
+
+## Link video 
+```
+https://youtu.be/Ijn-Crx6qi0
+```
