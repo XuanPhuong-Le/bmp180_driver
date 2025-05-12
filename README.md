@@ -66,7 +66,7 @@ bmp180-linux-driver/
 
 
 ## Hardware Connection
-BMP180 → I2C Host (e.g., Raspberry Pi)
+BMP180 → I2C Host (Raspberry Pi)
 | **BMP180 Pin** | **Description** | **Connect to Host**               |
 | -------------- | --------------- | --------------------------------- |
 | VCC            | Power Supply    | 3.3V or 5V                        |
