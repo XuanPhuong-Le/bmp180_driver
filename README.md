@@ -3,9 +3,9 @@
 The modules BMP180 is a barometric pressure sensor that also provides temperature readings. 
 Author
 -------
-   Lê Vũ Xuân Phương – 22146045
-   Hồ Phan Đức Minh  – 22146034
-   Phạm Văn Thịnh    – 22146056
+  - Lê Vũ Xuân Phương – 22146045
+  - Hồ Phan Đức Minh  – 22146034
+  - Phạm Văn Thịnh    – 22146056
 
 📍 University: HCMC University of Technology and Education – HCMUTE
 📅 Created: 12/05/2025
