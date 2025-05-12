@@ -190,4 +190,4 @@ Pressure: 1005.52 hPa
 * Standard kernel macros for registering and unregistering the driver.
 
 
-To keep the repository clean, files like `*.o`, `*.ko`, `.cmd`, binaries, and other build artifacts are ignored using `.gitignore`.
+## To keep the repository clean, files like `*.o`, `*.ko`, `.cmd`, binaries, and other build artifacts are ignored using `.gitignore`.
