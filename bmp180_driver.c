@@ -8,7 +8,6 @@
 #include "bmp180.h"
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Your Name");
 MODULE_DESCRIPTION("BMP180 I2C Driver");
 MODULE_VERSION("1.0");
 
