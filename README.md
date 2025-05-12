@@ -28,20 +28,20 @@ The final results will be displayed on the screen, allowing users to monitor and
 1. I2C Initialization and Driver Configuration:
 - When the driver module is loaded into the Linux kernel, it initializes I2C communication with the BMP180 sensor through the SDA (data) and SCL (clock) pins of the Raspberry Pi.
 - The BMP180 sensor is configured to read temperature and pressure values.
-
+-------------------------------------------------
 2. Reading Values from the Sensor:
 - The driver reads raw values from the BMP180 sensor's registers. The sensor provides data in a 16-bit format, which includes:
   - Raw temperature value
   - Raw pressure value
-
+-------------------------------------------------
 3. Processing and Converting Data:
 - These raw values are converted using the formulas provided in the BMP180 datasheet:
   - Temperature is converted from raw data to Celsius (°C).
   - Pressure is calculated and converted to Pascal (Pa).
-
+-------------------------------------------------
 4. Displaying Results:
 - After conversion, the temperature and pressure values are returned to the user application or displayed on the console screen for easy monitoring.
-
+-------------------------------------------------
 5. Error Handling and Warnings:
 - In case of any issues during I2C communication or if the sensor returns invalid data, the driver will report an error and prompt the user to retry.
 
