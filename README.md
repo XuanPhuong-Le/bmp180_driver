@@ -44,7 +44,6 @@ The final results will be displayed on the screen, allowing users to monitor and
 
 
 ## Project Structure
----------------------
 bmp180-linux-driver/
 ├── src/
 │   ├── bmp180_driver.c     # Main kernel driver that interfaces with the BMP180 sensor over I2C.
