@@ -13,11 +13,11 @@ Author
 
 ## Project Introduction
 ------------------------
--This project aims to build a working driver for the BMP180 sensor on the Raspberry Pi, using I2C communication. The driver allows the sensor to read raw temperature and pressure values from the internal registers.
--Afterward, the raw data will be processed and converted using precise calculation formulas (according to the BMP180 datasheet) to obtain:
+This project aims to build a working driver for the BMP180 sensor on the Raspberry Pi, using I2C communication. The driver allows the sensor to read raw temperature and pressure values from the internal registers.
+Afterward, the raw data will be processed and converted using precise calculation formulas (according to the BMP180 datasheet) to obtain:
    - Temperature (°C)
-   - Atmospheric Pressure (Pa)
--The final results will be displayed on the screen, allowing users to monitor and track environmental parameters directly.
+   - Atmospheric Pressure (Pa).
+The final results will be displayed on the screen, allowing users to monitor and track environmental parameters directly.
 
 
 ## Technical Description of How the Driver Works
