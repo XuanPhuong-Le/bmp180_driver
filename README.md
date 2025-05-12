@@ -113,7 +113,7 @@ Running the Test Application
 ------------------------------
 ```
 gcc -o bmp180_demo bmp180_demo.c
-sudo ./test_driver
+sudo ./bmp180_demo
 ```
 The demo program will output:
 ------------------------------
