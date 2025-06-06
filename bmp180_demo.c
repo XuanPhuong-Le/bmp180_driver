@@ -5,14 +5,17 @@
 #include <unistd.h>
 #include <linux/i2c-dev.h>
 #include <sys/ioctl.h>
+#include <math.h>
 
 #define BMP180_ADDRESS 0x77
+
 
 #define REG_CALIB_START 0xAA
 #define REG_CONTROL     0xF4
 #define REG_RESULT      0xF6
 #define CMD_TEMP        0x2E
-#define CMD_PRESSURE    0x34  
+#define CMD_PRESSURE    0x34   
+
 
 int16_t AC1, AC2, AC3, B1, B2, MB, MC, MD;
 uint16_t AC4, AC5, AC6;
@@ -67,6 +70,10 @@ int read_raw_pressure(int fd) {
     return (buf[0] << 8) | buf[1]; 
 }
 
+float compute_altitude(float pressure) {
+    return 44330.0 * (1.0 - pow(pressure / 101325.0, 0.1903));
+}
+
 int main() {
     int fd = open("/dev/i2c-1", O_RDWR);
     if (fd < 0) {
@@ -83,13 +90,13 @@ int main() {
 
     int UT = read_raw_temp(fd);
     int UP = read_raw_pressure(fd);
-    
 
+   
     int X1 = ((UT - AC6) * AC5) >> 15;
     int X2 = ((int32_t)MC << 11) / (X1 + MD);
     int B5 = X1 + X2;
     float temperature = ((B5 + 8) >> 4) / 10.0;
-    
+
 
     int B6 = B5 - 4000;
     X1 = (B2 * ((B6 * B6) >> 12)) >> 11;
@@ -114,13 +121,15 @@ int main() {
     X2 = (-7357 * pressure) >> 16;
     pressure = pressure + ((X1 + X2 + 3791) >> 4);
 
-    
+    float altitude = compute_altitude((float)pressure);
+
     printf("Raw Temperature: %d\n", UT);
     printf("Raw Pressure: %d\n", UP);
     printf("Temperature: %.2f °C\n", temperature);
     printf("Pressure: %.2f hPa\n", pressure / 100.0);
-
-
+    printf("Altitude: %.2f meters\n", altitude);
+   
+    
     close(fd);
     return 0;
 }
