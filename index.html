@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>BMP180 - Giám sát thời tiết</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ecf0f1;
+            padding: 40px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            margin: 20px auto;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .label {
+            font-weight: bold;
+        }
+        .advice {
+            color: green;
+            font-style: italic;
+            margin-top: 20px;
+        }
+        .refresh {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Giám sát cảm biến BMP180</h1>
+    <div class="card">
+        <p><span class="label">Nhiệt độ:</span> {{ data.temperature }}</p>
+        <p><span class="label">Áp suất:</span> {{ data.pressure }}</p>
+        <p><span class="label">Độ cao:</span> {{ data.altitude }}</p>
+        <p><span class="label">Dự báo thời tiết:</span> {{ data.forecast }}</p>
+        <p class="advice">{{ data.advice }}</p>
+        <div class="refresh">
+            <a href="/">🔄 Làm mới dữ liệu</a>
+        </div>
+    </div>
+</body>
+</html>
