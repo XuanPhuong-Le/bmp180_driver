@@ -19,6 +19,7 @@ This project aims to build a working driver for the BMP180 sensor on the Raspber
 Afterward, the raw data will be processed and converted using precise calculation formulas (according to the BMP180 datasheet) to obtain :
    - Temperature (°C)
    - Atmospheric Pressure (Pa)
+   - Altitude (m)
 
 The final results will be displayed on the screen, allowing users to monitor and track environmental parameters directly.
 
@@ -38,6 +39,7 @@ The final results will be displayed on the screen, allowing users to monitor and
 - These raw values are converted using the formulas provided in the BMP180 datasheet:
   - Temperature is converted from raw data to Celsius (°C).
   - Pressure is calculated and converted to Pascal (Pa).
+  - 𝐴𝑙𝑡𝑖𝑡𝑢𝑑𝑒 = 44330 × (1 − (𝑃/𝑃0)^(1/5.255)) (m)
 
 4. Displaying Results:
 - After conversion, the temperature and pressure values are returned to the user application or displayed on the console screen for easy monitoring.
@@ -54,7 +56,10 @@ bmp180-linux-driver/
 │   ├── bmp180_driver.c     # Main kernel driver that interfaces with the BMP180 sensor over I2C.
 │   ├── bmp180_demo.c       # A user-space C program that opens the driver and prints temperature and pressure.
 │   ├── bmp180.h            # Header file with declarations and I2C register definitions.
+│   ├── app.py              # Simple HTTP server to display sensor data in HTML.
 │   └── Makefile            # Used to build the kernel module and demo application.
+├── templates/
+│ └── index.html            # HTML frontend to display data.
 └── README.md               # Project documentation
  ```
 
@@ -121,12 +126,18 @@ sudo ./bmp180_demo
 The demo program will output:
 ------------------------------
 ```
-Raw Temperature: 30995
-Raw Pressure: 40696
-Temperature: 31.30 °C
-Pressure: 1005.52 hPa
+Raw Temperature: 31208
+Raw Pressure: 40537
+Temperature: 32.60 °C
+Pressure: 1004.31 hPa
+Altitude: 74.70 meters
 ```
-
+Running app.py:
+----------------
+```
+python3 app.py
+http://<raspberry-pi-ip>:8080
+```
 
 ## File Description
 --------------------
@@ -136,6 +147,8 @@ Pressure: 1005.52 hPa
 | `bmp180.h`        | Sensor register definitions and declarations   |
 | `Makefile`        | Build instructions for module and demo         |
 | `bmp180_demo.c`   | Userspace program to test driver functionality |
+| `app.py`          | HTTP server to display sensor data in HTML     |
+| `index.html`      | HTML frontend to display data                  |
 
 
 ## Important Functions in `bmp180_driver.c`
@@ -194,5 +207,5 @@ Pressure: 1005.52 hPa
 
 ## Link video 
 ```
-https://youtu.be/Ijn-Crx6qi0
+https://youtu.be/yxddURqrYwQ
 ```
